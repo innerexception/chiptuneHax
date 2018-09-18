@@ -7,28 +7,33 @@ export default class extends Phaser.Scene {
   }
 
   preload () {
-    this.fontsReady = false
-    this.fontsLoaded = this.fontsLoaded.bind(this)
+    // this.fontsReady = false
     this.add.text(100, 100, 'loading fonts...')
 
-    this.load.image('loaderBg', './assets/images/loader-bg.png')
-    this.load.image('loaderBar', './assets/images/loader-bar.png')
+    this.load.image('loaderBg', './res/images/loader-bg.png')
+    this.load.image('loaderBar', './res/images/loader-bar.png')
+    this.load.image('background', './res/images/cyberpunk-street.png')
 
-    WebFont.load({
-      google: {
-        families: ['Bangers']
-      },
-      active: this.fontsLoaded
-    })
+    this.load.atlas('sprites', 
+        'res/images/sprites.png',
+        'res/images/sprites.json'
+    );
+
+    // WebFont.load({
+    //   google: {
+    //     families: ['Bangers']
+    //   },
+    //   active: this.fontsLoaded
+    // })
   }
 
   update () {
-    if (this.fontsReady) {
-      this.scene.start('SplashScene')
-    }
+    // if (this.fontsReady) {
+      this.scene.start('GameScene')
+    // }
   }
 
-  fontsLoaded () {
+  fontsLoaded = () => {
     this.fontsReady = true
   }
 }

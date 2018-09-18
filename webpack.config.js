@@ -8,6 +8,7 @@ module.exports = {
     vendor: ['phaser']
   },
   mode: 'development',
+  devtool: 'source-map',
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
