@@ -19,13 +19,13 @@ export default class extends Phaser.Scene {
 
         this.grid = new Array(gridWidth).fill().map((row, x) => {
             return new Array(gridHeight).fill().map((col, y) => {
-            var sx = 140 + (x * 38)
-            var sy = 50 + (y * 38) //we use this y as the final position for the animation later
-            let asset = getRandomAssetName()
-            let image = this.add.image(sx, 0, 'sprites', asset+'Inactive')
-            image.setData('y', sy);
-            image.setData('asset', asset)
-            return image
+                var sx = 140 + (x * 38)
+                var sy = 50 + (y * 38) //we use this y as the final position for the animation later
+                let asset = getRandomAssetName()
+                let image = this.add.image(sx, 0, 'sprites', asset+'Inactive')
+                image.setData('y', sy);
+                image.setData('asset', asset)
+                return image
             })
         })
         this.matched = []
@@ -60,13 +60,13 @@ export default class extends Phaser.Scene {
     revealGrid = () =>
     {
         this.tweens.add({
-        targets: this.grid[0][0],
-        scaleX: '+=0.2',
-        scaleY: '+=0.2',
-        ease: 'Sine.easeInOut',
-        duration: 900,
-        yoyo: true,
-        repeat: -1
+            targets: this.grid[0][0],
+            scaleX: '+=0.2',
+            scaleY: '+=0.2',
+            ease: 'Sine.easeInOut',
+            duration: 900,
+            yoyo: true,
+            repeat: -1
         });
 
         this.tweens.add({
@@ -77,9 +77,9 @@ export default class extends Phaser.Scene {
 
         var i = 800;
 
-        for (var y = 13; y >= 0; y--)
+        for (var y = gridWidth-1; y >= 0; y--)
         {
-            for (var x = 0; x < 14; x++)
+            for (var x = 0; x < gridHeight; x++)
             {
                 var block = this.grid[x][y];
 
@@ -169,6 +169,11 @@ export default class extends Phaser.Scene {
         this.input.off('gameobjectdown', this.onIconDown);
     }
 
+    onIconOver = (pointer, gameObject) =>{
+        //Do a thing when mouse is over gameObject
+
+    }
+
     onIconDown = (pointer, gameObject) =>
     {
         if (!this.allowClick)
@@ -222,8 +227,8 @@ export default class extends Phaser.Scene {
     seedGrid = () => {
         for (var i = 0; i < 8; i++)
         {
-            var x = Phaser.Math.Between(0, 13)
-            var y = Phaser.Math.Between(0, 13)
+            var x = Phaser.Math.Between(0, gridWidth-1)
+            var y = Phaser.Math.Between(0, gridHeight-1)
             this.performHack(this.grid[x][y].getData('asset'), getRandomAssetName(), x, y)
         }
         this.matched.forEach((match) => {
@@ -258,7 +263,7 @@ export default class extends Phaser.Scene {
             this.performHack(originAsset, targetAsset, x - 1, y);
         }
 
-        if (x < 13)
+        if (x < gridWidth-1)
         {
             this.performHack(originAsset, targetAsset, x + 1, y);
         }
@@ -268,7 +273,7 @@ export default class extends Phaser.Scene {
             this.performHack(originAsset, targetAsset, x, y - 1);
         }
 
-        if (y < 13)
+        if (y < gridHeight-1)
         {
             this.performHack(originAsset, targetAsset, x, y + 1);
         }
