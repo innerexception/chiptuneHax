@@ -12,23 +12,23 @@ export default {
 export const icons = [
   {
     asset: 'orange',
-    x:40,
-    y:37
+    x:56,
+    y:53
   },
   {
     asset: 'pink',
-    x:700,
-    y:37
+    x:716,
+    y:53
   },
   {
     asset: 'blue',
-    x:40,
-    y:530
+    x:56,
+    y:546
   },
   {
     asset: 'black',
-    x:700,
-    y:530
+    x:716,
+    y:546
   }
 ]
 

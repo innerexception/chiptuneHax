@@ -150,8 +150,8 @@ export default class extends Phaser.Scene {
 
     startInputEvents= () => 
     {
-        // this.input.on('gameobjectover', this.onIconOver, this);
-        // this.input.on('gameobjectout', this.onIconOut, this);
+        this.input.on('gameobjectover', this.onIconOver, this);
+        this.input.on('gameobjectout', this.onIconOut, this);
         this.input.on('gameobjectdown', this.onIconDown, this);
 
         // this.input.keyboard.on('keydown_X', function () {
@@ -171,6 +171,30 @@ export default class extends Phaser.Scene {
 
     onIconOver = (pointer, gameObject) =>{
         //Do a thing when mouse is over gameObject
+        if (gameObject.input.enabled){
+          gameObject.tween = this.tweens.add({
+            targets: gameObject,
+            scaleX: '+=0.2',
+            scaleY: '+=0.2',
+            ease: 'Sine.easeInOut',
+            duration: 50,
+          })
+        }
+
+    }
+
+    onIconOut = (pointer, gameObject) =>{
+        //Do a thing when mouse is over gameObject
+        if (gameObject.input.enabled && gameObject.tween != undefined){
+          gameObject.tween.stop(0);
+          gameObject.tween = this.tweens.add({
+            targets: gameObject,
+            scaleX: '1',
+            scaleY: '1',
+            duration: 1,
+          })
+
+        }
 
     }
 
@@ -373,7 +397,7 @@ export default class extends Phaser.Scene {
         this.time.delayedCall(100, this.boom, [], this);
     }
 
-  createIcon = ({asset, x, y}) => this.add.image(x, y, 'sprites', asset+'Active').setOrigin(0).setInteractive().setData('asset', asset);
+  createIcon = ({asset, x, y}) => this.add.image(x, y, 'sprites', asset+'Active').setOrigin(0.5).setInteractive().setData('asset', asset);
 }
 
 const getRandomAssetName = () => {
