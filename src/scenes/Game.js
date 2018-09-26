@@ -251,12 +251,17 @@ export default class extends Phaser.Scene {
     seedGrid = () => {
         for (var i = 0; i < 8; i++)
         {
-            var x = Phaser.Math.Between(0, gridWidth-1)
-            var y = Phaser.Math.Between(0, gridHeight-1)
+            var x = Phaser.Math.Between(2, gridWidth-1)
+            var y = Phaser.Math.Between(2, gridHeight-1)
             this.performHack(this.grid[x][y].getData('asset'), getRandomAssetName(), x, y)
         }
         this.matched.forEach((match) => {
             match.setFrame(match.getData('asset')+'Inactive')
+        })
+        this.matched = []
+        this.performHack(this.grid[0][0].getData('asset'), this.grid[0][0].getData('asset'), 0, 0)
+        this.matched.forEach((match) => {
+            match.setFrame(match.getData('asset')+'Active')
         })
     }
 
@@ -265,21 +270,12 @@ export default class extends Phaser.Scene {
         const block = this.grid[x][y]
         const currentBlockAsset = block.getData('asset');
 
-        if(currentBlockAsset !== originAsset || originAsset === targetAsset){
-            if(originAsset === targetAsset){
-                if (this.matched.indexOf(block) === -1)
-                {
-                    this.matched.push(block);
-                }
-            }
+        if((currentBlockAsset !== originAsset && currentBlockAsset !== targetAsset) || this.matched.indexOf(block) !== -1){
             return
         } 
 
-        if (this.matched.indexOf(block) === -1)
-        {
-            this.matched.push(block);
-        }
-
+        this.matched.push(block);
+        
         //Want to make all blocks that match the origin texture into the target texture
         block.setData('asset', targetAsset)
         if (x > 0)
