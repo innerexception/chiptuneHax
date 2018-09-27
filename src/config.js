@@ -34,3 +34,16 @@ export const icons = [
 
 export const gridHeight = 14
 export const gridWidth = 14
+
+export const images = [
+  {name:'loaderBg', path: './res/images/loader-bg.png'},
+  {name:'loaderBar', path: './res/images/loader-bar.png'},
+  {name:'background', path: './res/images/cyberpunk-street.png'}
+]
+
+export const audio = [
+  {name: 'bass_1', paths: ['./res/sound/bass_1.mp3', './res/sound/bass_1.ogg']},
+  {name: 'precussion_1', paths: ['./res/sound/precussion_1.mp3', './res/sound/precussion_1.ogg']},
+  {name: 'rhythm_1', paths: ['./res/sound/rhythm_1.mp3', './res/sound/rhythm_1.ogg']},
+  {name: 'hack_click', paths: ['./res/sound/hack_click.mp3', './res/sound/hack_click.ogg']},
+]

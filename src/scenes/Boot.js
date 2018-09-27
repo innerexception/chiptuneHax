@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
+import { images, audio } from '../config'
 
 export default class extends Phaser.Scene {
   constructor () {
@@ -10,15 +11,19 @@ export default class extends Phaser.Scene {
     // this.fontsReady = false
     this.add.text(100, 100, 'loading fonts...')
 
-    this.load.image('loaderBg', './res/images/loader-bg.png')
-    this.load.image('loaderBar', './res/images/loader-bar.png')
-    this.load.image('background', './res/images/cyberpunk-street.png')
+    images.forEach((image) => {
+        this.load.image(image.name, image.path)
+    })
 
     this.load.atlas('sprites', 
         'res/images/sprites.png',
         'res/images/sprites.json'
-    );
+    )
 
+    audio.forEach((audio) => {
+      this.load.audio(audio.name, audio.paths)
+    })
+    
     // WebFont.load({
     //   google: {
     //     families: ['Bangers']

@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import {icons, gridWidth, gridHeight} from '../config'
+import {icons, gridWidth, gridHeight, audio} from '../config'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -30,6 +30,13 @@ export default class extends Phaser.Scene {
         })
         this.matched = []
 
+        this.sounds = {}
+        audio.forEach((audio) => this.sounds[audio.name] = this.sound.add(audio.name))
+        this.sounds.bass_1.play({loop: true})
+        //TODO: loops play out of sync, mp3 export of wav file changes the duration
+        // this.sounds[2].play({loop: true, delay: this.sounds[0].duration*2})
+        // this.sounds[1].play({loop: true, delay: this.sounds[0].duration})
+
         this.seedGrid()
 
         this.playerColor = this.grid[0][0].getData('asset');
@@ -42,6 +49,9 @@ export default class extends Phaser.Scene {
         this.moves = 20
         this.revealGrid()
         this.allowClick = true
+        
+
+
 
         // this.mushroom = new Mushroom({
         //   scene: this,
@@ -273,6 +283,8 @@ export default class extends Phaser.Scene {
         if((currentBlockAsset !== originAsset && currentBlockAsset !== targetAsset) || this.matched.indexOf(block) !== -1){
             return
         } 
+
+        this.sounds.hack_click.play()
 
         this.matched.push(block);
         
