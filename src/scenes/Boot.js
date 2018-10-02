@@ -8,7 +8,7 @@ export default class extends Phaser.Scene {
   }
 
   preload () {
-    // this.fontsReady = false
+    this.fontsReady = false
     this.add.text(100, 100, 'loading fonts...')
 
     images.forEach((image) => {
@@ -24,18 +24,18 @@ export default class extends Phaser.Scene {
       this.load.audio(audio.name, audio.paths)
     })
     
-    // WebFont.load({
-    //   google: {
-    //     families: ['Bangers']
-    //   },
-    //   active: this.fontsLoaded
-    // })
+    WebFont.load({
+      google: {
+        families: ['Bangers']
+      },
+      active: this.fontsLoaded
+    })
   }
 
   update () {
-    // if (this.fontsReady) {
+    if (this.fontsReady) {
       this.scene.start('GameScene')
-    // }
+    }
   }
 
   fontsLoaded = () => {
